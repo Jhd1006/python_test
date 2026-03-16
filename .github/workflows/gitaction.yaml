@@ -24,7 +24,7 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
       - name: python test
-        run: pytest
+        run: pytest 
 
   build:
     needs: [run-test-code] # run-test-code를 끝내야 buld 시작
