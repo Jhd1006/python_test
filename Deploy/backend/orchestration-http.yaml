@@ -16,21 +16,18 @@ spec:
       - name: app
         image: hyungdongjo/parking-orchestration-app:latest
         imagePullPolicy: Always
-        # [수정] 마이그레이션 선행 후 서버 실행 로직 추가
-        command: ["/bin/sh", "-c"]
+        # 마이그레이션 제거, 바로 Gunicorn 실행
+        command: ["/opt/venv/bin/gunicorn"]
         args:
-          - |
-            echo "Waiting for DB to be ready and running migrations..."
-            /opt/venv/bin/python manage.py migrate --noinput &&
-            echo "Migrations completed successfully. Starting Gunicorn..."
-            /opt/venv/bin/gunicorn \
-              --bind 0.0.0.0:8000 \
-              --workers 2 \
-              park_py.wsgi:application \
-              --access-logfile - \
-              --error-logfile - \
-              --capture-output \
-              --log-level debug
+          - "--bind"
+          - "0.0.0.0:8000"
+          - "--workers"
+          - "2"
+          - "park_py.wsgi:application"
+          - "--access-logfile"
+          - "-"
+          - "--error-logfile"
+          - "-"
         ports:
         - containerPort: 8000
         env:
@@ -45,20 +42,11 @@ spec:
         - name: ORCHESTRATION_DB_NAME
           value: "parking_db"
         - name: ORCHESTRATION_DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: parking-db-secret
-              key: user-id
+          valueFrom: { secretKeyRef: { name: parking-db-secret, key: user-id } }
         - name: ORCHESTRATION_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: parking-db-secret
-              key: user-password
+          valueFrom: { secretKeyRef: { name: parking-db-secret, key: user-password } }
         - name: DJANGO_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: parking-secret
-              key: django_secret_key
+          valueFrom: { secretKeyRef: { name: parking-secret, key: django_secret_key } }
         - name: VEHICLE_SERVICE_GRPC_TARGET
           value: "vehicle-grpc:50015"
         - name: ZONE_SERVICE_GRPC_TARGET
@@ -71,12 +59,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: orchestration-http  # 이 이름이 봇이 찾는 이름입니다!
+  name: orchestration-http
 spec:
   selector:
     app: orchestration-http
   ports:
     - protocol: TCP
-      port: 8000        # 봇이 접속할 포트
-      targetPort: 8000  # 컨테이너 포트
+      port: 8000
+      targetPort: 8000
   type: ClusterIP

@@ -16,14 +16,9 @@ spec:
       - name: app
         image: hyungdongjo/parking-command-app:latest
         imagePullPolicy: Always
-        # [수정] 쉘을 사용하여 마이그레이션 선행 후 gRPC 서버 실행
-        command: ["/bin/sh", "-c"]
-        args:
-          - |
-            echo "Running migrations for Parking Command Service..."
-            /opt/venv/bin/python manage.py migrate --noinput &&
-            echo "Migrations successful. Starting gRPC server on port 50017..."
-            /opt/venv/bin/python manage.py run_parking_command_grpc
+        # 마이그레이션 제거, gRPC 서버 바로 실행
+        command: ["/opt/venv/bin/python"]
+        args: ["manage.py", "run_parking_command_grpc"]
         ports:
         - containerPort: 50017
         env:
@@ -38,29 +33,13 @@ spec:
         - name: PARKING_COMMAND_DB_NAME
           value: "parking_db"
         - name: PARKING_COMMAND_DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: parking-db-secret
-              key: user-id
+          valueFrom: { secretKeyRef: { name: parking-db-secret, key: user-id } }
         - name: PARKING_COMMAND_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: parking-db-secret
-              key: user-password
+          valueFrom: { secretKeyRef: { name: parking-db-secret, key: user-password } }
         - name: PARKING_COMMAND_GRPC_PORT
           value: "50017"
         - name: DJANGO_SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: parking-secret
-              key: django_secret_key
-        - name: VEHICLE_SERVICE_GRPC_TARGET
-          value: "vehicle-grpc:50015"
-        - name: ZONE_SERVICE_GRPC_TARGET
-          value: "zone-grpc:50016"
-        - name: PARKING_QUERY_SERVICE_GRPC_TARGET
-          value: "parking-query-grpc:50018"
-
+          valueFrom: { secretKeyRef: { name: parking-secret, key: django_secret_key } }
 ---
 apiVersion: v1
 kind: Service
