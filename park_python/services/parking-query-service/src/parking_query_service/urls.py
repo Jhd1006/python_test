@@ -1,0 +1,1 @@
+from parking_query_service.parking_view.interfaces.http.urls import urlpatterns

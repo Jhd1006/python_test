@@ -1,0 +1,52 @@
+.venv/
+.venv-cpython39/
+.codex/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# test files
+**/test/__init__.py
+**/test/**/__init__.py
+**/tests/init.py
+**/tests/**/init.py
+**/test/TEST_SPEC.md
+**/tests/TEST_SPEC.md
+
+# Coverage artifacts
+/reports/
+/scripts/open_project_coverage.sh
+
+# Local docs
+/docs/*
+
+# Ignore markdown files by default
+*.md
+AGENTS.md
+
+# Keep README files anywhere
+!README.md
+!**/README.md
+!/.github/*.md
+
+# Keep only entity docs under docs/
+/docs/*
+!/docs/entities/
+!/docs/entities/**/*.md
+
+# Ignore test documents except README files
+services/*/test/*.md
+services/*/test/*.txt
+services/*/test/*.rst
+services/*/test/**/*.md
+services/*/test/**/*.txt
+services/*/test/**/*.rst
+!services/*/test/README.md
+!services/*/test/**/README.md
+
+# Local-only coverage helpers
+/docs/tdd/coverage-local-guide.md
+
+# Track entity schema docs only
+!/docs/entities/
+!/docs/entities/*.md

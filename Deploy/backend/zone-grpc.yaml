@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zone-grpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zone-grpc
+  template:
+    metadata:
+      labels:
+        app: zone-grpc
+    spec:
+      containers:
+      - name: app
+        image: hyungdongjo/parking-zone-app:latest
+        imagePullPolicy: Always
+        # [수정] 마이그레이션 후 gRPC 서버 실행
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            echo "Running migrations for Zone Service..."
+            /opt/venv/bin/python manage.py migrate --noinput &&
+            echo "Migrations successful. Starting Zone gRPC server..."
+            /opt/venv/bin/python manage.py run_zone_grpc
+        ports:
+        - containerPort: 50016
+        env:
+        - name: PYTHONPATH
+          value: "/app:/app/shared:/app/contracts/gen/python:/app/services/zone-service/src"
+        - name: DJANGO_SETTINGS_MODULE
+          value: "park_py.settings_zone"
+        - name: ZONE_DB_HOST
+          value: "zone-db-service"
+        - name: ZONE_DB_PORT
+          value: "3306"
+        - name: ZONE_DB_NAME
+          value: "parking_db"
+        - name: ZONE_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: parking-db-secret
+              key: user-id
+        - name: ZONE_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: parking-db-secret
+              key: user-password
+        - name: ZONE_GRPC_PORT
+          value: "50016"
+        - name: DJANGO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: parking-secret
+              key: django_secret_key
+        - name: VEHICLE_SERVICE_GRPC_TARGET
+          value: "vehicle-grpc:50015"
+        - name: ZONE_SERVICE_GRPC_TARGET
+          value: "zone-grpc:50016"
+        - name: PARKING_COMMAND_SERVICE_GRPC_TARGET
+          value: "parking-command-grpc:50017"
+        - name: PARKING_QUERY_SERVICE_GRPC_TARGET
+          value: "parking-query-grpc:50018"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zone-grpc
+spec:
+  selector:
+    app: zone-grpc
+  ports:
+    - protocol: TCP
+      port: 50016
+      targetPort: 50016

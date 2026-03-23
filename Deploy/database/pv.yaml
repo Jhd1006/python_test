@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-parking-command-db
+  labels:
+    app: parking-command-db
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  nfs:
+    server: 10.0.2.101
+    path: /srv/nfs/mariadb/command-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-parking-query-db
+  labels:
+    app: parking-query-db
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  nfs:
+    server: 10.0.2.101
+    path: /srv/nfs/mariadb/query-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-vehicle-db
+  labels:
+    app: vehicle-db
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  nfs:
+    server: 10.0.2.101
+    path: /srv/nfs/mariadb/vehicle-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-zone-db
+  labels:
+    app: zone-db
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  nfs:
+    server: 10.0.2.101
+    path: /srv/nfs/mariadb/zone-db
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-orchestration-db
+  labels:
+    app: orchestration-db
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  nfs:
+    server: 10.0.2.101
+    path: /srv/nfs/mariadb/orchestration-db

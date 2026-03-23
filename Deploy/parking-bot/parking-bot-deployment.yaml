@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parking-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parking-bot
+  template:
+    metadata:
+      labels:
+        app: parking-bot
+    spec:
+      containers:
+      - name: traffic-bot
+        image: hyungdongjo/parking-bot:latest
+        imagePullPolicy: Always  # 이미지를 새로 빌드해서 올렸다면 Always가 안전합니다.
+        env:
+        - name: API_URL
+          # 쿠버네티스 내부 서비스 이름과 정확한 경로로 수정
+          value: "http://orchestration-http:8000/api/v1/parking"
