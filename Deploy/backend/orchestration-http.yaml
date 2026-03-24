@@ -16,20 +16,14 @@ spec:
       - name: app
         image: hyungdongjo/parking-orchestration-app:latest
         imagePullPolicy: Always
-        # 마이그레이션 제거, 바로 Gunicorn 실행
+        # Gunicorn 실행 시 --access-logfile - 옵션을 추가하여 봇의 요청 주소를 로그로 출력합니다.
         command: ["/opt/venv/bin/gunicorn"]
-        args:
-          - "--bind"
-          - "0.0.0.0:8000"
-          - "--workers"
-          - "2"
-          - "park_py.wsgi:application"
-          - "--access-logfile"
-          - "-"
-          - "--error-logfile"
-          - "-"
-        ports:
-        - containerPort: 8000
+        args: [
+          "--bind", "0.0.0.0:8000", 
+          "--workers", "2", 
+          "--access-logfile", "-", 
+          "park_py.wsgi:application"
+        ]
         env:
         - name: PYTHONPATH
           value: "/app:/app/shared:/app/contracts/gen/python:/app/services/orchestration-service/src"
@@ -37,8 +31,6 @@ spec:
           value: "park_py.settings_orchestration"
         - name: ORCHESTRATION_DB_HOST
           value: "orchestration-db-service"
-        - name: ORCHESTRATION_DB_PORT
-          value: "3306"
         - name: ORCHESTRATION_DB_NAME
           value: "parking_db"
         - name: ORCHESTRATION_DB_USER
@@ -48,13 +40,13 @@ spec:
         - name: DJANGO_SECRET_KEY
           valueFrom: { secretKeyRef: { name: parking-secret, key: django_secret_key } }
         - name: VEHICLE_SERVICE_GRPC_TARGET
-          value: "vehicle-grpc:50015"
+          value: "vehicle-grpc-service:50015"
         - name: ZONE_SERVICE_GRPC_TARGET
-          value: "zone-grpc:50016"
+          value: "zone-grpc-service:50016"
         - name: PARKING_COMMAND_SERVICE_GRPC_TARGET
-          value: "parking-command-grpc:50017"
+          value: "parking-command-grpc-service:50017"
         - name: PARKING_QUERY_SERVICE_GRPC_TARGET
-          value: "parking-query-grpc:50018"
+          value: "parking-query-grpc-service:50018"
 ---
 apiVersion: v1
 kind: Service
@@ -67,4 +59,3 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-  type: ClusterIP

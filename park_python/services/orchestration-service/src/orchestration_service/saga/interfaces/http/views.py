@@ -45,6 +45,7 @@ def create_entry(request: HttpRequest) -> JsonResponse:
         return _missing_idempotency_key_response()
 
     payload = _load_json_body(request)
+    print(f"DEBUG - Received Payload: {payload}")
     result = build_entry_saga_service().execute(
         vehicle_num=payload["vehicle_num"],
         slot_id=payload["slot_id"],
@@ -53,6 +54,7 @@ def create_entry(request: HttpRequest) -> JsonResponse:
     )
     if result["status"] == "COMPLETED":
         return JsonResponse(result, status=201)
+    print(f"❌ Entry Failed! Result: {result}")
     return _build_failed_response(result)
 
 

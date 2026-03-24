@@ -15,10 +15,9 @@ spec:
       containers:
       - name: app
         image: hyungdongjo/parking-zone-app:latest
+        imagePullPolicy: Always
         command: ["/opt/venv/bin/python"]
         args: ["manage.py", "run_zone_grpc"]
-        ports:
-        - containerPort: 50016
         env:
         - name: PYTHONPATH
           value: "/app:/app/shared:/app/contracts/gen/python:/app/services/zone-service/src"
@@ -26,8 +25,6 @@ spec:
           value: "park_py.settings_zone"
         - name: ZONE_DB_HOST
           value: "zone-db-service"
-        - name: ZONE_DB_PORT
-          value: "3306"
         - name: ZONE_DB_NAME
           value: "parking_db"
         - name: ZONE_DB_USER
@@ -38,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: zone-grpc
+  name: zone-grpc-service
 spec:
   selector:
     app: zone-grpc

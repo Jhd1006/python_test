@@ -15,10 +15,9 @@ spec:
       containers:
       - name: app
         image: hyungdongjo/parking-vehicle-app:latest
+        imagePullPolicy: Always
         command: ["/opt/venv/bin/python"]
         args: ["manage.py", "run_vehicle_grpc"]
-        ports:
-        - containerPort: 50015
         env:
         - name: PYTHONPATH
           value: "/app:/app/shared:/app/contracts/gen/python:/app/services/vehicle-service/src"
@@ -26,8 +25,6 @@ spec:
           value: "park_py.settings_vehicle"
         - name: VEHICLE_DB_HOST
           value: "vehicle-db-service"
-        - name: VEHICLE_DB_PORT
-          value: "3306"
         - name: VEHICLE_DB_NAME
           value: "parking_db"
         - name: VEHICLE_DB_USER
@@ -38,7 +35,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: vehicle-grpc
+  name: vehicle-grpc-service
 spec:
   selector:
     app: vehicle-grpc
