@@ -1,9 +1,7 @@
-# 📊 Initial Data Seeding Guide
+📊 Initial Data Seeding Guide
 
-서비스 배포 후 초기 데이터 생성을 위한 스크립트입니다. 각 블록을 복사하여 터미널에서 실행하세요.
-
-### 1. [Zone 서비스] 구역 및 슬롯 1,000개 생성
-```bash
+1. [Zone 서비스] 구역 및 슬롯 1,000개 생성
+Bash
 kubectl exec -it deployment/zone-grpc -- /opt/venv/bin/python manage.py shell -c "
 from zone_service.models import Zone, SlotType, ParkingSlot
 import string
@@ -19,6 +17,8 @@ for z_idx in range(1, 11):
     print(f' ✅ {zone_name} 완료')
 "
 
+2. [Command 서비스] 슬롯 데이터 동기화
+Bash
 kubectl exec -it deployment/parking-command-grpc -- /opt/venv/bin/python manage.py shell -c "
 from parking_command_service.domains.parking_record.domain import ParkingSlot
 import string
@@ -32,6 +32,8 @@ for z_idx in range(1, 11):
     print(f' ✅ ZONE-{z_idx} 동기화 완료')
 "
 
+3. [Vehicle 서비스] 차량 1,000대 등록
+Bash
 kubectl exec -it deployment/vehicle-grpc -- /opt/venv/bin/python manage.py shell -c "
 from vehicle_service.models import Vehicle
 for i in range(1, 1001):
@@ -39,8 +41,4 @@ for i in range(1, 1001):
     Vehicle.objects.get_or_create(vehicle_num=v_num, defaults={'vehicle_type': 'GENERAL'})
     if i % 200 == 0: print(f' ✅ {i}대 등록 중...')
 print(' ✅ Vehicle 등록 최종 완료!')
-"
-
-        ParkingSlot.objects.get_or_create(slot_id=s_id, defaults={'zone_id': z_idx, 'slot_code': s_code, 'is_active': True})
-    print(f' ✅ ZONE-{z_idx} 동기화 완료')
 "
