@@ -1,8 +1,5 @@
 # 🗄️  Deployment Guide
 
-MariaDB 클러스터 구성을 위한 NFS 서버 설정 및 쿠버네티스 배포 절차입니다.
-
-
 ```bash
 # 🗄️ Database Deployment Guide
 # 1. NFS 서버 패키지 설치
@@ -35,22 +32,26 @@ sudo apt update && sudo apt install -y pigz
 kubectl apply -f pv.yaml
 kubectl apply -f parking-command-db.yaml -f parking-query-db.yaml -f vehicle-db.yaml -f zone-db.yaml -f orchestration-db.yaml
 kubectl apply -f migrate-jobs.yaml
-
+```
+```bash
 # 🗄️ Backend Deployment Guide
 
 # 1. 배포
 cd ~/Deploy/backend
 kubectl apply -f zone-grpc.yaml -f vehicle-grpc.yaml -f parking-query-grpc.yaml -f parking-command-grpc.yaml
 kubectl apply -f orchestration-http.yaml
-
+```
+```bash
 # 🗄️ Frontend Deployment Guide
 
 # 1. 배포
 cd ~/Deploy/frontend
 kubectl apply -f deployment.yaml
-
+```
+```bash
 # 🗄️ Parking-Bot Deployment Guide
 
 # 1. 배포
 cd ~/Deploy/parking-bot
 kubectl apply -f parking-bot-deployment.yaml
+```
