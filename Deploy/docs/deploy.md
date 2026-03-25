@@ -43,7 +43,7 @@ cd ~/Deploy/backend
 kubectl apply -f zone-grpc.yaml -f vehicle-grpc.yaml -f parking-query-grpc.yaml -f parking-command-grpc.yaml
 kubectl apply -f orchestration-http.yaml
 
-# 🗄️ Frontkend Deployment Guide
+# 🗄️ Frontend Deployment Guide
 
 # 1. 배포
 cd ~/Deploy/frontend
