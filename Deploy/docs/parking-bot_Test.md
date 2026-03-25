@@ -4,10 +4,8 @@ kubectl logs -f deployment/parking-bot
 <img width="1087" height="370" alt="image" src="https://github.com/user-attachments/assets/9d725727-e71f-409d-bcdc-b9f906eaac33" />
 
 ```
-방금 정리해드린 형식과 동일하게, 깃허브 마크다운 에디터에 통째로 복사해서 붙여넣기만 하면 제목과 코드 블록이 각각 깔끔하게 분리되는 버전입니다.
 
-🕵️ 실시간 모니터링 및 데이터 조회 가이드
-서비스 운영 중 현재 주차 현황과 등록 차량 데이터를 조회하는 스크립트입니다.
+### 🕵️ 실시간 모니터링 및 데이터 조회 가이드
 
 ### 1. [현재 주차 상황] 실시간 상세 현황 조회
 ```bash
