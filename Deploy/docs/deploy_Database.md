@@ -34,3 +34,22 @@ sudo apt update && sudo apt install -y nfs-common
 kubectl apply -f pv.yaml
 kubectl apply -f parking-command-db.yaml -f parking-query-db.yaml -f vehicle-db.yaml -f zone-db.yaml -f orchestration-db.yaml
 kubectl apply -f migrate-jobs.yaml
+
+# 🗄️ Backend Deployment Guide
+
+# 1. 배포
+cd ~/Deploy/backend
+kubectl apply -f zone-grpc.yaml -f vehicle-grpc.yaml -f parking-query-grpc.yaml -f parking-command-grpc.yaml
+kubectl apply -f orchestration-http.yaml
+
+# 🗄️ Frontkend Deployment Guide
+
+# 1. 배포
+cd ~/Deploy/frontend
+kubectl apply -f deployment.yaml
+
+# 🗄️ Parking-Bot Deployment Guide
+
+# 1. 배포
+cd ~/Deploy/parking-bot
+kubectl apply -f parking-bot-deployment.yaml
