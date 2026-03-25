@@ -29,6 +29,7 @@ sudo systemctl restart nfs-kernel-server
 
 # 6. 워커노드 (모든 워커 노드에서 실행)
 sudo apt update && sudo apt install -y nfs-common
+sudo apt update && sudo apt install -y pigz
 
 # 7. 배포 (마스터 노드에서 실행)
 kubectl apply -f pv.yaml
