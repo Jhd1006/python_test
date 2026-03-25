@@ -1,8 +1,8 @@
-# 🗄️ Database Deployment Guide
+# 🗄️  Deployment Guide
 
 MariaDB 클러스터 구성을 위한 NFS 서버 설정 및 쿠버네티스 배포 절차입니다.
 
-### 전체 배포 과정
+# 🗄️ Database Deployment Guide
 
 ```bash
 # 1. NFS 서버 패키지 설치
