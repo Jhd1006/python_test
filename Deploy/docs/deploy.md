@@ -1,7 +1,6 @@
 # 🗄️  Deployment Guide
-
-```bash
 # 🗄️ Database Deployment Guide
+```bash
 # 1. NFS 서버 패키지 설치
 sudo apt update && sudo apt install -y nfs-kernel-server
 
@@ -33,17 +32,17 @@ kubectl apply -f pv.yaml
 kubectl apply -f parking-command-db.yaml -f parking-query-db.yaml -f vehicle-db.yaml -f zone-db.yaml -f orchestration-db.yaml
 kubectl apply -f migrate-jobs.yaml
 ```
-```bash
 # 🗄️ Backend Deployment Guide
+```bash
 
 # 1. 배포
 cd ~/Deploy/backend
 kubectl apply -f zone-grpc.yaml -f vehicle-grpc.yaml -f parking-query-grpc.yaml -f parking-command-grpc.yaml
 kubectl apply -f orchestration-http.yaml
 ```
-```bash
 # 🗄️ Frontend Deployment Guide
 
+```bash
 # 1. 배포
 cd ~/Deploy/frontend
 kubectl apply -f deployment.yaml
