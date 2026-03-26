@@ -1,9 +1,8 @@
 ### 봇 로그 확인 (실시간)
 ```bash
 kubectl logs -f deployment/parking-bot
-![image](https://github.com/user-attachments/assets/02520a63-2488-40ff-92bb-07fb1a4b86e3)
-
 ```
+<img width="1059" height="253" alt="image" src="https://github.com/user-attachments/assets/7803b3db-82a6-46a1-ba1e-b502bb9fcbba" />
 
 ### 🕵️ 실시간 모니터링 및 데이터 조회 가이드
 
