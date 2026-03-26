@@ -39,6 +39,8 @@ for z_id in range(1, 11):
 print('\n' + '═'*90 + '\n')
 "
 ```
+<img width="1093" height="451" alt="image" src="https://github.com/user-attachments/assets/ddc6046d-986e-47ec-91e6-0228510f043e" />
+
 ### 2. [현재 등록 차량] 전체 리스트 조회
 ```bash
 kubectl exec -it deployment/vehicle-grpc -- /opt/venv/bin/python manage.py shell -c "
@@ -48,6 +50,8 @@ print(f'\n--- [ 등록된 차량 전체 리스트 ({all_vehicles.count()}대) ] 
 for v in all_vehicles:
     print(f'🚗 번호판: {v.vehicle_num} | 타입: {v.vehicle_type}')
 "
+<img width="585" height="337" alt="image" src="https://github.com/user-attachments/assets/e058a265-dbb1-4051-8736-3a39889b207e" />
+
 ```
 ### 3. [구역별 점유 상황] 시각화 요약 조회
 ```bash
@@ -79,3 +83,5 @@ print(f' 📈 TOTAL : {total_parked:4d}/{total_slots:4d} Occupied  |  Overall De
 print('═'*85 + '\n')
 "
 ```
+<img width="1065" height="379" alt="image" src="https://github.com/user-attachments/assets/f26541fd-2289-4959-95cf-79fbe19cfbfa" />
+
