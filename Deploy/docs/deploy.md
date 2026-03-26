@@ -52,7 +52,7 @@ kubectl apply -f deployment.yaml
 # 🗄️ Parking-Bot Deployment Guide
 
 # 1. 배포
-**사전 데이터 주입 필요 : Deploy/docs/setup_Parking-bot.md**
+#사전 데이터 주입 필요 : Deploy/docs/setup_Parking-bot.md
 cd ~/Deploy/parking-bot
 kubectl apply -f parking-bot-deployment.yaml
 ```
