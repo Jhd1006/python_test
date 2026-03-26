@@ -34,7 +34,7 @@ for z_idx in range(1, 11):
 "
 ```
 
-### 3. [Vehicle 서비스] 차량 1,000대 등록
+### 3. [Vehicle 서비스] 차량 1,000대 등록 (100가0001~ 100가1000)
 ```bash
 kubectl exec -it deployment/vehicle-grpc -- /opt/venv/bin/python manage.py shell -c "
 from vehicle_service.models import Vehicle
