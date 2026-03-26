@@ -1,5 +1,5 @@
+### 봇 로그 확인 (실시간)
 ```bash
-봇 로그 확인 (실시간):
 kubectl logs -f deployment/parking-bot
 <img width="1087" height="370" alt="image" src="https://github.com/user-attachments/assets/9d725727-e71f-409d-bcdc-b9f906eaac33" />
 
