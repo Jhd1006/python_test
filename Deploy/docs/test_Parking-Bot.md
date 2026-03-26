@@ -1,7 +1,7 @@
 ### 봇 로그 확인 (실시간)
 ```bash
 kubectl logs -f deployment/parking-bot
-<img width="1065" height="255" alt="image" src="https://github.com/user-attachments/assets/02520a63-2488-40ff-92bb-07fb1a4b86e3" />
+![image](https://github.com/user-attachments/assets/02520a63-2488-40ff-92bb-07fb1a4b86e3)
 
 ```
 
