@@ -1,4 +1,3 @@
-# 🗄️  Deployment Guide
 # 🗄️ Database Deployment Guide
 ```bash
 # 1. NFS 서버 패키지 설치
@@ -47,9 +46,8 @@ kubectl apply -f orchestration-http.yaml
 cd ~/Deploy/frontend
 kubectl apply -f deployment.yaml
 ```
-```bash
 # 🗄️ Parking-Bot Deployment Guide
-
+```bash
 # 1. 배포
 #사전 데이터 주입 필요 : Deploy/docs/setup_Parking-bot.md
 cd ~/Deploy/parking-bot
