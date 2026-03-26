@@ -52,6 +52,7 @@ for v in all_vehicles:
 "
 ```
 <img width="585" height="337" alt="image" src="https://github.com/user-attachments/assets/e058a265-dbb1-4051-8736-3a39889b207e" />
+
 ### 3. [구역별 점유 상황] 시각화 요약 조회
 ```bash
 kubectl exec -it deployment/parking-command-grpc -- /opt/venv/bin/python manage.py shell -c "
